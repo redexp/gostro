@@ -1,0 +1,1 @@
+component_result.gostro:1:1: function Bad has tags in statement position, so it is a component and cannot have an explicit result

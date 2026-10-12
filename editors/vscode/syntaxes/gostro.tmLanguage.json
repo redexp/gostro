@@ -1,0 +1,700 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Gostro",
+  "scopeName": "source.gostro",
+  "fileTypes": [
+    "gostro"
+  ],
+  "patterns": [
+    {
+      "include": "#code"
+    }
+  ],
+  "repository": {
+    "code": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#html-comment"
+        },
+        {
+          "include": "#doctype"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#style-element"
+        },
+        {
+          "include": "#script-element"
+        },
+        {
+          "include": "#tag-close"
+        },
+        {
+          "include": "#tag-open"
+        },
+        {
+          "include": "#go"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.gostro",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": {
+              "name": "punctuation.definition.comment.gostro"
+            }
+          }
+        },
+        {
+          "name": "comment.line.double-slash.gostro",
+          "begin": "//",
+          "end": "$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.gostro"
+            }
+          }
+        }
+      ]
+    },
+    "html-comment": {
+      "name": "comment.block.html.gostro",
+      "begin": "<!--",
+      "end": "-->",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.comment.gostro"
+        }
+      }
+    },
+    "doctype": {
+      "name": "meta.tag.metadata.doctype.gostro",
+      "match": "(<!)([dD][oO][cC][tT][yY][pP][eE])([^>]*)(>)",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.gostro"
+        },
+        "2": {
+          "name": "entity.name.tag.doctype.gostro"
+        },
+        "3": {
+          "name": "entity.other.attribute-name.gostro"
+        },
+        "4": {
+          "name": "punctuation.definition.tag.end.gostro"
+        }
+      }
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.gostro",
+          "begin": "\"",
+          "end": "\"|$",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.gostro"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-escape"
+            },
+            {
+              "include": "#string-placeholder"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.raw.gostro",
+          "begin": "`",
+          "end": "`",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.gostro"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-placeholder"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.rune.gostro",
+          "match": "'(?:\\\\(?:[abfnrtv\\\\'\"]|[0-7]{3}|x\\h{2}|u\\h{4}|U\\h{8})|[^'\\\\])'",
+          "captures": {
+            "0": {
+              "patterns": [
+                {
+                  "include": "#string-escape"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "string-escape": {
+      "name": "constant.character.escape.gostro",
+      "match": "\\\\(?:[abfnrtv\\\\'\"]|[0-7]{3}|x\\h{2}|u\\h{4}|U\\h{8})"
+    },
+    "string-placeholder": {
+      "name": "constant.other.placeholder.gostro",
+      "match": "%(?:\\[\\d+\\])?[-+# 0]*(?:\\d+|\\*)?(?:\\.(?:\\d+|\\*))?[vTtbcdoOqxXUeEfFgGsp%]"
+    },
+    "tag-open": {
+      "patterns": [
+        {
+          "comment": "Component: <Card …>, <ui.Card …>. A tag is only possible in prefix position, so not right after an identifier or bracket.",
+          "name": "meta.tag.component.gostro",
+          "begin": "(?<![\\w)\\].'\"`])(<)(?:([A-Za-z_]\\w*)(\\.))?([A-Z]\\w*|(?<=\\.)[A-Za-z_]\\w*)(?=[\\s/>]|$)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.namespace.gostro"
+            },
+            "3": {
+              "name": "punctuation.accessor.gostro"
+            },
+            "4": {
+              "name": "support.class.component.gostro"
+            }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributes"
+            }
+          ]
+        },
+        {
+          "name": "meta.tag.gostro",
+          "begin": "(?<![\\w)\\].'\"`])(<)([a-z][\\w\\-]*)(?=[\\s/>]|$)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#attributes"
+            }
+          ]
+        }
+      ]
+    },
+    "tag-close": {
+      "patterns": [
+        {
+          "name": "meta.tag.component.gostro",
+          "match": "(</)(?:([A-Za-z_]\\w*)(\\.))?([A-Z]\\w*|(?<=\\.)[A-Za-z_]\\w*)\\s*(>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.namespace.gostro"
+            },
+            "3": {
+              "name": "punctuation.accessor.gostro"
+            },
+            "4": {
+              "name": "support.class.component.gostro"
+            },
+            "5": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          }
+        },
+        {
+          "name": "meta.tag.gostro",
+          "match": "(</)([a-z][\\w\\-]*)\\s*(>)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          }
+        }
+      ]
+    },
+    "style-element": {
+      "patterns": [
+        {
+          "comment": "<style>…</style> on one line: the content is tokenized as a separate group, so the embedded grammar cannot swallow the closing tag.",
+          "begin": "(?<![\\w)\\].'\"`])(<)(style)((?:\\s[^>]*)?)(>)(?=.*?</style\\s*>)",
+          "beginCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#attributes"
+                }
+              ]
+            },
+            "4": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "end": "(</)(style)\\s*(>)",
+          "endCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "match": "(.+?)(?=</style\\s*>)",
+              "captures": {
+                "1": {
+                  "name": "source.css.embedded.gostro",
+                  "patterns": [
+                    {
+                      "include": "source.css"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "comment": "<style> content is taken verbatim up to </style> (§4.3).",
+          "begin": "(?<![\\w)\\].'\"`])(?=<style(?:[\\s>]|$))",
+          "end": "(</)(style)\\s*(>)",
+          "endCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "name": "meta.tag.gostro",
+              "begin": "\\G(<)(style)",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.gostro"
+                },
+                "2": {
+                  "name": "entity.name.tag.gostro"
+                }
+              },
+              "end": ">",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.definition.tag.end.gostro"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#attributes"
+                }
+              ]
+            },
+            {
+              "begin": "(?<=>)",
+              "end": "(?=</style\\s*>)",
+              "contentName": "source.css.embedded.gostro",
+              "patterns": [
+                {
+                  "include": "source.css"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "script-element": {
+      "patterns": [
+        {
+          "comment": "<script>…</script> on one line: the content is tokenized as a separate group, so the embedded grammar cannot swallow the closing tag.",
+          "begin": "(?<![\\w)\\].'\"`])(<)(script)((?:\\s[^>]*)?)(>)(?=.*?</script\\s*>)",
+          "beginCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#attributes"
+                }
+              ]
+            },
+            "4": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "end": "(</)(script)\\s*(>)",
+          "endCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "match": "(.+?)(?=</script\\s*>)",
+              "captures": {
+                "1": {
+                  "name": "source.js.embedded.gostro",
+                  "patterns": [
+                    {
+                      "include": "source.js"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "comment": "<script> content is taken verbatim up to </script> (§4.3).",
+          "begin": "(?<![\\w)\\].'\"`])(?=<script(?:[\\s>]|$))",
+          "end": "(</)(script)\\s*(>)",
+          "endCaptures": {
+            "0": {
+              "name": "meta.tag.gostro"
+            },
+            "1": {
+              "name": "punctuation.definition.tag.begin.gostro"
+            },
+            "2": {
+              "name": "entity.name.tag.gostro"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.gostro"
+            }
+          },
+          "patterns": [
+            {
+              "name": "meta.tag.gostro",
+              "begin": "\\G(<)(script)",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.definition.tag.begin.gostro"
+                },
+                "2": {
+                  "name": "entity.name.tag.gostro"
+                }
+              },
+              "end": ">",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.definition.tag.end.gostro"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#attributes"
+                }
+              ]
+            },
+            {
+              "begin": "(?<=>)",
+              "end": "(?=</script\\s*>)",
+              "contentName": "source.js.embedded.gostro",
+              "patterns": [
+                {
+                  "include": "source.js"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "keyword.other.directive.gostro",
+          "match": "(?<![\\w:.\\-])(?:class:list|set:html|is:inline)(?![\\w:.\\-])"
+        },
+        {
+          "name": "entity.other.attribute-name.gostro",
+          "match": "[A-Za-z_@][\\w:.\\-]*"
+        },
+        {
+          "name": "punctuation.separator.key-value.gostro",
+          "match": "="
+        },
+        {
+          "name": "string.quoted.double.html.gostro",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.gostro"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.gostro"
+            }
+          }
+        },
+        {
+          "name": "string.quoted.single.html.gostro",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.gostro"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.gostro"
+            }
+          }
+        },
+        {
+          "include": "#expression"
+        }
+      ]
+    },
+    "expression": {
+      "name": "meta.embedded.expression.gostro",
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.section.embedded.begin.gostro"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.section.embedded.end.gostro"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#braces"
+        },
+        {
+          "include": "#code"
+        }
+      ]
+    },
+    "braces": {
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.gostro"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.gostro"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#braces"
+        },
+        {
+          "include": "#code"
+        }
+      ]
+    },
+    "go": {
+      "patterns": [
+        {
+          "match": "\\b(package)\\s+([A-Za-z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "keyword.other.package.gostro"
+            },
+            "2": {
+              "name": "entity.name.type.package.gostro"
+            }
+          }
+        },
+        {
+          "name": "keyword.other.import.gostro",
+          "match": "\\bimport\\b"
+        },
+        {
+          "comment": "func Name( / func (r T) Name( / func Name[T any](",
+          "match": "\\b(func)\\s+(?:(\\([^)]*\\))\\s*)?([A-Za-z_]\\w*)(?=\\s*[\\[(])",
+          "captures": {
+            "1": {
+              "name": "storage.type.function.gostro"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#go"
+                }
+              ]
+            },
+            "3": {
+              "name": "entity.name.function.gostro"
+            }
+          }
+        },
+        {
+          "match": "\\b(type)\\s+([A-Za-z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.type.gostro"
+            },
+            "2": {
+              "name": "entity.name.type.gostro"
+            }
+          }
+        },
+        {
+          "name": "keyword.control.gostro",
+          "match": "\\b(?:break|case|continue|default|defer|else|fallthrough|for|go|goto|if|range|return|select|switch)\\b"
+        },
+        {
+          "name": "storage.type.gostro",
+          "match": "\\b(?:chan|const|func|interface|map|struct|type|var)\\b"
+        },
+        {
+          "name": "storage.type.builtin.gostro",
+          "match": "\\b(?:any|bool|byte|comparable|complex64|complex128|error|float32|float64|int|int8|int16|int32|int64|rune|string|uint|uint8|uint16|uint32|uint64|uintptr)\\b"
+        },
+        {
+          "name": "constant.language.gostro",
+          "match": "\\b(?:true|false|nil|iota)\\b"
+        },
+        {
+          "name": "variable.language.gostro",
+          "match": "\\b(?:props|slots|ctx)\\b"
+        },
+        {
+          "name": "entity.name.type.package.gostro",
+          "match": "\\b__gostro\\b"
+        },
+        {
+          "name": "support.function.builtin.gostro",
+          "match": "\\b(?:append|cap|clear|close|complex|copy|delete|imag|len|make|max|min|new|panic|print|println|real|recover)\\b(?=\\s*\\()"
+        },
+        {
+          "match": "\\b([A-Za-z_]\\w*)(?=\\s*(?:\\[[^\\]]*\\])?\\()",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.gostro"
+            }
+          }
+        },
+        {
+          "comment": "Props types and names ending in Props",
+          "name": "entity.name.type.gostro",
+          "match": "\\b[A-Z]\\w*Props\\b"
+        },
+        {
+          "name": "constant.numeric.gostro",
+          "match": "\\b(?:0[xX][\\h_]+(?:\\.[\\h_]*)?(?:[pP][+-]?\\d+)?|0[bB][01_]+|0[oO]?[0-7_]+|\\d[\\d_]*(?:\\.[\\d_]*)?(?:[eE][+-]?\\d+)?|\\.\\d[\\d_]*(?:[eE][+-]?\\d+)?)i?\\b"
+        },
+        {
+          "name": "keyword.operator.assignment.gostro",
+          "match": ":=|(?:<<|>>|&\\^|[-+*/%&|^])?=(?!=)"
+        },
+        {
+          "name": "keyword.operator.channel.gostro",
+          "match": "<-"
+        },
+        {
+          "name": "keyword.operator.gostro",
+          "match": "&&|\\|\\||==|!=|<=|>=|<<|>>|&\\^|\\+\\+|--|\\.\\.\\.|[-+*/%&|^!<>~]"
+        },
+        {
+          "name": "punctuation.separator.gostro",
+          "match": "[,;:]"
+        },
+        {
+          "name": "punctuation.accessor.gostro",
+          "match": "\\."
+        }
+      ]
+    }
+  }
+}

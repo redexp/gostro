@@ -1,0 +1,5 @@
+type StyleExprProps struct{ C string }
+
+<style>
+  a { color: {props.C}; }
+</style>

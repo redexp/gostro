@@ -1,0 +1,35 @@
+type RawProps struct {
+	Data   map[string]any
+	Active bool
+	Name   string
+	URL    string
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- this comment stays -->
+    <link rel="stylesheet" href="/a.css">
+    {ctx.Styles()}
+    <style is:inline>.x { color: red; }</style>
+    <style media="print">.y { display: none; }</style>
+  </head>
+  <body class:list={[]any{"page", map[string]bool{"active": props.Active}}}>
+    <input type="text" name={props.Name} required disabled={!props.Active} value=''>
+    <a href={props.URL} title='he said "yes"'>{"&<>"}</a>
+    <img src={__gostro.SafeURL(props.URL)} alt="x &amp; y">
+    <div set:html={"<b>raw</b>"}/>
+    <pre>{"line 1\nline 2"}</pre>
+    <script>const data = {__gostro.JSON(props.Data)}; if (data) { console.log(data) }</script>
+    <script src="/app.js"></script>
+    <script type="module">import "/m.js"</script>
+    {ctx.Scripts()}
+  </body>
+</html>
+
+<style>
+  body { margin: 0; }
+</style>
+<script>
+  document.body.dataset.ready = "1"
+</script>

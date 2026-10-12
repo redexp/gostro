@@ -1,0 +1,25 @@
+type PostCardProps struct {
+	Post    Post
+	Current string // active tag
+}
+
+<article class="card">
+  <h2><a href={"/posts/" + props.Post.Slug}>{props.Post.Title}</a></h2>
+  <time datetime={props.Post.Date.Format("2006-01-02")}>{props.Post.Date.Format("02.01.2006")}</time>
+  <p>{props.Post.Summary}</p>
+  if len(props.Post.Tags) > 0 {
+    <div class="tags">
+      for _, t := range props.Post.Tags {
+        <Tag name={t} active={t == props.Current}/>
+      }
+    </div>
+  }
+  <slot name="actions"/>
+</article>
+
+<style>
+  .card { padding: 16px 0; border-bottom: 1px solid #eee; }
+  .card h2 { margin: 0 0 4px; font-size: 22px; }
+  .card h2 a { color: inherit; text-decoration: none; }
+  .card time { color: var(--muted); font-size: 14px; }
+</style>

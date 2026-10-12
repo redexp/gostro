@@ -1,0 +1,1 @@
+onclick.gostro:2:9: dynamic value for event handler onclick on <button> is not allowed: it is a JavaScript context; pass data via a data-* attribute or <script>{__gostro.JSON(v)}</script>

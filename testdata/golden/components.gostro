@@ -1,0 +1,39 @@
+import "strings"
+
+type ComponentsProps struct {
+	Title    string
+	MaxWidth int
+	Items    []string
+}
+
+type BoxProps struct {
+	Title    string
+	MaxWidth int
+	Wide     bool
+}
+
+func Box(props BoxProps) {
+	<div class="box" data-title={props.Title}>
+		<header><slot name="head">{"(no title)"}</slot></header>
+		<slot/>
+	</div>
+}
+
+func Upper(s string) __gostro.Node {
+	return <span>{strings.ToUpper(s)}</span>
+}
+
+items := []__gostro.Node{
+	<li>{"one"}</li>,
+	<li>{"two"}</li>,
+}
+extra := map[string]__gostro.Node{"x": <hr/>}
+
+<Box title={props.Title} max-width={props.MaxWidth} wide>
+	<h2 slot="head">{props.Title}</h2>
+	<ul>{items}</ul>
+	{extra["x"]}
+	{Upper("naïve café")}
+	<Box title="nested"/>
+</Box>
+{Box(BoxProps{Title: "direct"}, nil)}

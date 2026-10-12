@@ -1,0 +1,28 @@
+type PostPageProps struct {
+	Post Post
+}
+
+<Layout title={props.Post.Title}>
+  <article class="post">
+    <h1>{props.Post.Title}</h1>
+    <time datetime={props.Post.Date.Format("2006-01-02")}>{props.Post.Date.Format("02.01.2006")}</time>
+    for _, para := range props.Post.Body {
+      <p>{para}</p>
+    }
+    <div class="tags">
+      for _, t := range props.Post.Tags {
+        <Tag name={t}/>
+      }
+    </div>
+    <button type="button" class="copy" data-slug={props.Post.Slug}>{"Copy link"}</button>
+  </article>
+</Layout>
+
+<script>
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".copy");
+    if (!b) return;
+    navigator.clipboard.writeText(location.origin + "/posts/" + b.dataset.slug);
+    b.textContent = "Copied";
+  });
+</script>

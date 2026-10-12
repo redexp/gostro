@@ -1,0 +1,13 @@
+type PageProps struct {
+	Posts []string
+}
+
+<Layout title="Home">
+  <h1 slot="header">{"Blog"}</h1>
+  for _, p := range props.Posts {
+    <Card title={p} href={"/p/" + p} tags={[]string{"a", "b"}}>
+      <p>{"Description"}</p>
+    </Card>
+  }
+  <Card title="No description"/>
+</Layout>

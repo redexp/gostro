@@ -1,0 +1,4 @@
+bare_words.gostro:2:3: bare text is not allowed; wrap it in {"…"}
+ 2 |   Hello world
+   |   ^^^^^^^^^^^
+ hint: {"Hello world"}

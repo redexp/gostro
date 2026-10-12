@@ -1,0 +1,4 @@
+bare_apostrophe.gostro:1:4: bare text is not allowed; wrap it in {"…"}
+ 1 | <p>Don't</p>
+   |    ^^^^^
+ hint: {"Don't"}

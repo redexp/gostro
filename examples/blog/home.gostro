@@ -1,0 +1,40 @@
+type HomeProps struct {
+	Posts []Post
+	Tag   string
+	Tags  []string
+}
+
+title := "Posts"
+if props.Tag != "" {
+	title = "Posts tagged #" + props.Tag
+}
+
+<Layout title={title}>
+  <section slot="hero" class="hero">
+    <h1>{title}</h1>
+    <div class="tags">
+      for _, t := range props.Tags {
+        <Tag name={t} active={t == props.Tag}/>
+      }
+    </div>
+  </section>
+
+  switch len(props.Posts) {
+  case 0:
+    <p class="empty">{"Nothing found."}</p>
+  default:
+    for _, p := range props.Posts {
+      <PostCard post={p} current={props.Tag}>
+        <a slot="actions" class="more" href={"/posts/" + p.Slug}>{"Read more →"}</a>
+      </PostCard>
+    }
+  }
+
+  <p slot="footer">{"Total posts: "}{len(props.Posts)}</p>
+</Layout>
+
+<style>
+  .hero h1 { margin: 0 0 8px; }
+  .more { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .empty { color: var(--muted); }
+</style>

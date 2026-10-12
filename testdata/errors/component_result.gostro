@@ -1,0 +1,4 @@
+func Bad() string {
+  <p/>
+  return ""
+}

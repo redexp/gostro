@@ -1,0 +1,49 @@
+import (
+	"fmt"
+	"strings"
+)
+
+type ControlProps struct {
+	N     int
+	Words []string
+	Ch    chan string
+}
+
+// Labels, tagless switch, type switch, select, nested if/else.
+var v any = props.N
+
+<div>
+  switch {
+  case props.N < 0:
+    <b>{"minus"}</b>
+  case props.N == 0:
+  default:
+    for i := 0; i < props.N; i++ {
+      if i%2 == 0 {
+        <i>{i}</i>
+      } else if i%3 == 0 {
+        <u>{i}</u>
+      } else {
+        continue
+      }
+    }
+  }
+  switch x := v.(type) {
+  case int:
+    <span>{fmt.Sprint(x + 1)}</span>
+  case string, nil:
+  }
+  select {
+  case s := <-props.Ch:
+    <p>{s}</p>
+  default:
+    <p>{"silence"}</p>
+  }
+  for _, w := range []string{"a", "b"} {
+    <em>{strings.ToUpper(w)}</em>
+  }
+  for k, w := range map[string]int{"x": 1} {
+    <dl>{k}{w}</dl>
+  }
+  {/* JSX-like comment */}
+</div>

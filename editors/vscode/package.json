@@ -1,0 +1,49 @@
+{
+  "name": "gostro",
+  "displayName": "Gostro",
+  "description": "Syntax highlighting for gostro templates (.gostro)",
+  "version": "0.1.0",
+  "publisher": "gostro",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "gostro",
+        "aliases": [
+          "Gostro",
+          "gostro"
+        ],
+        "extensions": [
+          ".gostro"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gostro",
+        "scopeName": "source.gostro",
+        "path": "./syntaxes/gostro.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.css": "css",
+          "source.js": "javascript"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node test/tokenize.mjs --check",
+    "package": "vsce package --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.6.2",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.2.0"
+  }
+}

@@ -1,0 +1,28 @@
+// card.gostro
+import "strings"
+
+type CardProps struct {
+    Title string
+    Tags  []string
+    Href  string
+}
+
+slug := strings.ToLower(strings.ReplaceAll(props.Title, " ", "-"))
+
+<article id={slug} class:list={[]any{"card", map[string]bool{"card--wide": len(props.Tags) > 3}}}>
+  <a href={props.Href}><h2>{props.Title}</h2></a>
+
+  if len(props.Tags) > 0 {
+    <ul>
+      for _, t := range props.Tags {
+        <li class="tag">{t}</li>
+      }
+    </ul>
+  }
+
+  <slot>{"Empty"}</slot>
+</article>
+
+<style>
+  .card { border: 1px solid #ddd; }
+</style>

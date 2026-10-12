@@ -1,0 +1,13 @@
+# Local tooling
+.claude/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+
+# Build output
+/gostro
+/gostro.exe
+*.test
+*.out

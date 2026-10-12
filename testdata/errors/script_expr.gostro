@@ -1,0 +1,5 @@
+type ScriptExprProps struct{ X int }
+
+<script>
+  let x = {props.X}
+</script>

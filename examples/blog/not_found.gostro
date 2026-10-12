@@ -1,0 +1,11 @@
+type NotFoundProps struct {
+	Path string
+}
+
+ctx.SetStatus(404)
+
+<Layout title="Not found">
+  <h1>{"404"}</h1>
+  <p>{"Page "}<code>{props.Path}</code>{" does not exist."}</p>
+  <p><a href="/">{"← Back home"}</a></p>
+</Layout>

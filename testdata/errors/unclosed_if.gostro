@@ -1,0 +1,5 @@
+x := true
+<div>
+  if x {
+    <b/>
+</div>

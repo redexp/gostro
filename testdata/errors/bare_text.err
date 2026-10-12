@@ -1,0 +1,4 @@
+bare_text.gostro:1:4: bare text is not allowed; wrap it in {"…"}
+ 1 | <p>Hello</p>
+   |    ^^^^^
+ hint: {"Hello"}

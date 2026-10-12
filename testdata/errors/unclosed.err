@@ -1,0 +1,3 @@
+unclosed.gostro:1:1: tag <div> is not closed (opened at 1:1)
+ 1 | <div>
+   | ^^^^

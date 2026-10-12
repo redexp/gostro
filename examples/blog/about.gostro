@@ -1,0 +1,10 @@
+<Layout title="About">
+  <h1>{"About gostro"}</h1>
+  <p>{"An HTML template engine for Go: a superset of Go syntax with markup literals."}</p>
+  <ul>
+    for _, s := range []string{"Code generation, not interpretation", "Contextual escaping", "Slots and components", "No scoped CSS"} {
+      <li>{s}</li>
+    }
+  </ul>
+  <span slot="footer">{"A demo for the gostro spec"}</span>
+</Layout>

@@ -1,0 +1,4 @@
+attr_interp.gostro:2:10: interpolation inside quotes is not supported; use class={expr} with Go string concatenation
+ 2 | <a class="btn btn-{size}"/>
+   |          ^^^^^^^^^^^^^^^^
+ hint: class={…}

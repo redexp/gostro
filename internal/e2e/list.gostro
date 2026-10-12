@@ -1,0 +1,66 @@
+import "fmt"
+
+type ListProps struct {
+	Items []string
+	Mode  int
+	HTML  string
+	Off   bool
+	Data  map[string]int
+}
+
+type BadgeProps struct {
+	Text string
+}
+
+func Badge(props BadgeProps) {
+	<span class="badge">{props.Text}</span>
+}
+
+func item(s string) __gostro.Node {
+	return <li>{s}</li>
+}
+
+total := len(props.Items)
+items := []__gostro.Node{}
+for i, s := range props.Items {
+	items = append(items, <li data-i={i}>{s}</li>)
+}
+
+<section>
+  <ul>{items}</ul>
+  <ol>
+    for _, s := range props.Items {
+      {item(s)}
+    }
+  </ol>
+  n := total * 2
+  <span>{n}</span>
+  switch props.Mode {
+  case 0:
+    <p>{"zero"}</p>
+  case 1, 2:
+    <p>{"few"}</p>
+  default:
+    <p>{fmt.Sprintf("many: %d", props.Mode)}</p>
+  }
+  if total == 0 {
+    <em>{"empty"}</em>
+  } else if total == 1 {
+    <em>{"one"}</em>
+  } else {
+    <em>{total}</em>
+  }
+  <Badge text="new"/>
+  {Badge(BadgeProps{Text: "direct"}, nil)}
+  <div set:html={props.HTML}></div>
+  <button disabled={props.Off} type="button">{"OK"}</button>
+  <input type="checkbox" checked/>
+  <script>window.data = {__gostro.JSON(props.Data)};</script>
+  <script is:inline>console.log("inline")</script>
+  <script>console.log("registered")</script>
+  {/* this comment is not rendered */}
+  <a href={"javascript:alert(1)"} title="a & b &amp; c">{"<b>not a tag</b>"}</a>
+  <p>{"Space:"}{" "}{42}{" "}{3.5}{" "}{true}</p>
+  <br>
+  <div/>
+</section>

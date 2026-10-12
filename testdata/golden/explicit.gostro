@@ -1,0 +1,28 @@
+package golden
+
+import "fmt"
+
+type RowProps struct {
+	Label string
+	Value int
+}
+
+// A file with no implicit body: only explicit components and helper functions.
+func Row(props RowProps) {
+	<tr><th>{props.Label}</th><td>{fmt.Sprint(props.Value)}</td></tr>
+}
+
+func Table(rows map[string]int) __gostro.Node {
+	return <table>
+		for k, v := range rows {
+			<Row label={k} value={v}/>
+		}
+	</table>
+}
+
+func sum(xs ...int) (n int) {
+	for _, x := range xs {
+		n += x
+	}
+	return
+}

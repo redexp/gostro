@@ -1,0 +1,4 @@
+script_expr.gostro:4:11: {expr} inside <script> is not allowed; use {__gostro.JSON(v)}
+ 4 |   let x = {props.X}
+   |           ^^^^^^^^^
+ hint: {__gostro.JSON(v)}
