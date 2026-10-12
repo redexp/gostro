@@ -1,6 +1,0 @@
-("(" @open ")" @close)
-("[" @open "]" @close)
-("{" @open "}" @close)
-(start_tag "<" @open ">" @close)
-(end_tag "</" @open ">" @close)
-(self_closing_tag "<" @open "/>" @close)

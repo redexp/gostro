@@ -1,5 +1,7 @@
 # gostro
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/redexp/gostro.svg)](https://pkg.go.dev/github.com/redexp/gostro)
+
 An HTML template engine for Go: a superset of Go syntax with markup literals. `.gostro` files are transpiled into plain `.go` files, so props are type-checked by the Go compiler. The full design is described in [gostro-spec.md](gostro-spec.md).
 
 ```go
@@ -117,7 +119,6 @@ testdata/golden/  *.gostro + expected *.go.want
 testdata/errors/  *.gostro + expected error text *.err
 examples/blog/    demo site
 editors/vscode/   VS Code extension (TextMate grammar)
-editors/zed/      Zed extension (tree-sitter grammar)
 ```
 
 Update golden files:
